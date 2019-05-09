@@ -1,0 +1,35 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "a node restful api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LejlaDolovac/Celebrity-app-Rest-api.git"
+  },
+  "keywords": [
+    "Node",
+    "restful",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LejlaDolovac/Celebrity-app-Rest-api/issues"
+  },
+  "homepage": "https://github.com/LejlaDolovac/Celebrity-app-Rest-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "form-data": "^2.3.3",
+    "mongoose": "^5.5.5",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}
