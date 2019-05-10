@@ -1,5 +1,5 @@
 
-// here we put in new celebs
+// here we put in new celebs- newCelebs
 // status code 201 is the proper code to say everything is working
 
 
@@ -7,8 +7,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose'); // tillhör order.js
 
-const Order = require('.../models/order');
-const Product = require('.../models/product'); 
+const Order = require('../models/order');
+const Product = require('../models/product'); 
 
 
       // handles incoming GET-request to orders

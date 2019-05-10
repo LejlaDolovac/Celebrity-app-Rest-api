@@ -2,9 +2,10 @@
 // defines how a product should look like in an aplication
 
 const mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema({
-    _id: mongoose.schema.Types.objectId,
+    _id: Schema.Types.ObjectId,
     name: {type: String, required: true},
     when: {type: String, require: true}
 

@@ -1,10 +1,11 @@
 // product related routes 
+// here we get our orders - celebs
 
 const express = require('express');
 const router = express.Router(); // handels every router
-const mongoos = require('mongoose');
+const mongoose = require('mongoose');
 
-const Product = require('.../models/product');
+const Product = require('../models/product');
 
 
 
@@ -52,8 +53,8 @@ router.get('/ ', (req, res, next) => {   // next
 
       // POST 
 router.post('/ ', (req, res, next) => {     // next
-     const product = New Product({
-         _id: new mongoos.Types.ObjectId(),
+     const product = new Product({
+         _id: new mongoose.Types.ObjectId(),
          name: req.body.name,
          when: req.body.when
           
