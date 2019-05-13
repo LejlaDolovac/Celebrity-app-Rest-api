@@ -1,5 +1,5 @@
 {
     "env": {
-        "MONGO_ATLAS-PW" : "choklad"
+        "MONGO_ATLAS-PW" : "admin123"
     }
 }

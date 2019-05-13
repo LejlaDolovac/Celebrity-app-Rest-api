@@ -13,7 +13,7 @@ const Product = require('../models/product');
 
 
         // GET 
-router.get('/ ', (req, res, next) => {   // next
+router.get('/', (req, res, next) => {   // next
     Product.find()
     .select('name when _id')
     .exec()
@@ -52,7 +52,7 @@ router.get('/ ', (req, res, next) => {   // next
 
 
       // POST 
-router.post('/ ', (req, res, next) => {     // next
+router.post('/', (req, res, next) => {     // next
      const product = new Product({
          _id: new mongoose.Types.ObjectId(),
          name: req.body.name,
@@ -142,7 +142,7 @@ router.get('./:productId', (req, res, next) => {
     });
 
 
-          // DELETE
+            // DELETE
     router.delete('./:productId', (req, res, next) => {
         const id = req.params.productId;
         Product.remove({_id: id}) // removes an object that fulfills criteria

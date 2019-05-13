@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 
 
 
- const productRoutes = require('./routes/products');  
- const orderRoutes = require('./routes/orders');  
+ let productRoutes = require('./routes/products');  
+ let orderRoutes = require('./routes/orders');  
 
  mongoose.connect(`mongodb+srv://admin:admin123@cluster0-ljuk8.mongodb.net/test?retryWrites=true`, {
     useNewUrlParser : true
@@ -40,8 +40,8 @@ app.use(bodyParser.json());
 
 
   // Routes which should handle request
-app.use('./routes/products', productRoutes);
-app.use('./routes/orders', orderRoutes);
+app.use('/products', productRoutes);
+app.use('/orders', orderRoutes);
 
    // sends an error
 
@@ -52,18 +52,17 @@ app.use('./routes/orders', orderRoutes);
 
    });
 
-     // if 404 fails we want to send another error  if the first request is error and not req.
+    // if 404 fails we want to send another error  if the first request is error and not req.
+    app.use((error, req, res, next) => {
+        res.status(error.status || 500);
+        res.json({
+            error: {
+                message: error.message
+            }
+        });
 
-     app.use((error, req, res, next) => {
-         res.status(error.status || 500);
-         res.json({
-             error: {
-                 message: error.message
-             }
-         });
-
-         
-     });
+        
+    });
 
 module.exports = app;
  
