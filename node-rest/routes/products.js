@@ -6,13 +6,12 @@ const router = express.Router(); // handels every router
 const mongoose = require('mongoose');
 
 const Product = require('../models/product');
-
+const ProductSeen = require('../models/productseen');
 
 
 // handling request to products 
 
-
-        // GET 
+// GET 
 router.get('/', (req, res, next) => {   // next
     Product.find()
     .select('name when _id')
@@ -33,13 +32,7 @@ router.get('/', (req, res, next) => {   // next
             })
 
         };
-       // if(docs.length >= 0){
-            res.status(200).json(response); 
-      //  } else {
-           //  res.status(404).json({
-           //     message : "No names found"
-          //   });
-      //  }
+        res.status(200).json(response); 
     })
     .catch(err => {
         console.log(err);
@@ -49,9 +42,33 @@ router.get('/', (req, res, next) => {   // next
     });
 });
  
+router.get('/seen', (req, res, next) => { 
+    ProductSeen.find()
+    .select('name _id')
+    .exec()
+    .then(docs =>{
+        const response = {
+            count: docs.length,
+            products: docs.map(doc => {
+                return {
+                      name : doc.name,
+                      _id : doc._id
+                };
+            })
+
+        };
+        res.status(200).json(response); 
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+           error: err
+        });
+    });
+});
 
 
-      // POST 
+// POST 
 router.post('/', (req, res, next) => {     // next
      const product = new Product({
          _id: new mongoose.Types.ObjectId(),
@@ -88,8 +105,37 @@ router.post('/', (req, res, next) => {     // next
     
 });
 
+// POST 
+router.post('/move', (req, res, next) => {     // next
+    
+    console.log(req);
+    
+    const product = new ProductSeen({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.data.name,         
+    });
+// method used for mongoose models
+   product
+   .save()
+   .then(result => {
+        console.log(result);
+        res.status(201).json({
+           message: "C reated product successfully",
+           createdProduct : {
+               name: result.name,
+               _id : result._id
+           }   
+       });
+   })
+   .catch(err => {
+       console.log(err);
+       res.status(500).json({
+           error: err
+       });
+   }); 
+});
 
-        // GET ID 
+// GET ID 
 router.get('./:productId', (req, res, next) => {
      const id = req.params.productId;
      Product.findById(id)
@@ -143,9 +189,12 @@ router.get('./:productId', (req, res, next) => {
 
 
             // DELETE
-    router.delete('./:productId', (req, res, next) => {
-        const id = req.params.productId;
-        Product.remove({_id: id}) // removes an object that fulfills criteria
+    router.delete('/', (req, res, next) => {
+        let name = req.body.id;
+
+        console.log(req.body.id);
+
+        Product.deleteOne({name: name}) // removes an object that fulfills criteria
         .exec()
         .then(result => {
             res.status(200).json({
